@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Removedor de Espaços</title>
+    <style>
+
+body {
+    background-color: rgb(19, 102, 226);
+}
+
+header {
+    color: rgb(15, 132, 228);
+    text-align: center;
+    font-size: 50px;
+}
+
+section {
+    background-color: rgb(246, 249, 250);
+    border-radius: 10px;
+    padding: 120px;
+    width: 450px;
+    margin: auto;
+    /*centralizando*/
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.274);
+    /*sombra na borda*/
+    font-size: 17, 5px;
+}
+
+
+
+p#resp{
+    background-color: rgb(142, 215, 238);
+    width: max-content;
+    text-align: center;
+}
+
+p#cont{
+    width: max-content;
+}
+
+footer{
+    text-align: center;
+    font-style: italic;
+}
+    </style>
+
+    
+</head>
+<body>
+    
+    <!--Iniciando a responsividade-->
+    <div class=”container”>
+        <div class="one-third column">
+        </div>
+            <div class="one-third column">
+            </div>
+                <div class="one-third column">
+                </div>
+    </div>
+    <!--Finalizando a responsividade-->
+
+    
+    <section>
+
+        <header>Removedor de espaços</header> <!--Titulo da pagina-->
+        <p> <!--Primeiro paragrafo com o campo texto-->
+            Cole a chave:
+           <input type="text"  id="chavetxt" placeholder="Cole a chave aqui." maxlength=54 size=51> <!--Criando campo texto/ usando placeholder pra bota mensagem no fundo do campo/ definindo maximo de caracteres/ tamanho do campo-->
+           <p id="cont"> <!--Campo onde irei mostrar caracteres-->
+            Caracteres: 
+        </p>
+        </p>
+
+        <p id="pbut"><!--Paragrafo do botao-->
+            
+            <input type="button"  value="Tirar espaços" id="btn" onclick="converter()" onkeypress="handleKeyPress(event)"> <!--Criando botao do tipo button/ colocando seu nome/ adicionando uma id/ função quando clicar no botao/ função pra apertar uma tecla(chamando função event no javascript)-->
+        </p>
+
+       <strong> <p id="resp"> <!--Onde vou retornar a chave sem os espaços-->
+          Preencha dados acima para obter a chave sem acesso.
+        </p></strong> 
+    </section>
+
+   <strong> 
+       <footer id="rodape"> <!--Criando rodapé-->
+        By: Felipe Costa Machado</br> <!--Mensagem que vai aparecer no meu rodape-->
+        GitHub: FelipeCosta01</br>
+        Instagram: felipecostamach
+        
+    </footer>
+</strong>
+</body>
+
+<script>
+document.addEventListener('keydown', function(event) { /*Criando a função do event pra quando clicar uma tecla*/
+
+    if(event.keyCode == 13){ /*Se a teclado for 13(enter) chama a função abaixo*/
+        converter(); /*função converte no botao*/
+    }
+})
+
+function converter() { /*Função de converter a chave*/
+
+    let chave = document.getElementById('chavetxt') /*Chamando os inputs/campos do html*/
+    let res = document.getElementById('resp') /*Chamando os inputs/campos do html*/
+    let contres = document.getElementById('cont') /*Chamando os inputs/campos do html*/
+    
+   
+    let novachave = chave.value /*Atribuindo meu objeto chave para uma nova variavel*/
+
+	chave.value = "" /*Toda vez que iniciar o codigo novamente(Apertando o botao/enter), vai limpar o campo*/
+
+    if(novachave != ""){ /*Se a nova chave for diferente de vazia, executa os codigos abaixo*/
+        for (var  i = 0; i < novachave.length; i++) { /*passando por todos os numeros até quando i for menor que o tamanho da nova chave*/
+        
+            novachave = novachave.replace(" ", "") /*Trocando espaço por sem espaço*/
+               
+           }
+           
+           if(novachave.length == 44){ /*Se a novachave for igual a 44 executa o codigo abaixo*/
+            contres.style.backgroundColor = "#00FF66" /*Se for igual a 44 o campo caracteres fica verde*/
+            contres.innerHTML = (`Caracteres: ${novachave.length}`) /*Mostra quantidade de caracteres no campo caracteres*/
+			res.innerHTML = (`${(novachave)}`) /*Substituindo o campo res, pela nova chave*/
+            navigator.clipboard.writeText(novachave); /*Pegando o conteudo da novachave e jogando na area de tranferencia*/
+           
+            
+    }else{ /*Se for diferente de 44 caracteres executa abaixo*/
+        contres.style.backgroundColor = "#FF0000" /*Campo caracteres ira ficar vermelho*/
+        contres.innerHTML = (`Caracteres: ${novachave.length}`) /*Mostra quantidade de caracteres no campo caracteres*/
+        window.alert('Minimo 44 caracteres ou Digite apenas numeros!') /*Dando a mensagem de erro*/
+        }
+        
+
+    }else{ /*Se a chave for diferente de preenchida executa o codigo abaixo*/
+        res.innerHTML = (`Preencha dados acima para obter a chave sem acesso.`) /*Caso não tiver chave continua na mesma frase anterior*/
+        window.alert("Preencha a chave!!") /*Notificando pra preencher a chave*/
+    }
+
+}
+
+</script>
+</html>
